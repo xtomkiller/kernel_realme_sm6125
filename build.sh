@@ -12,7 +12,7 @@ git clone --depth=1 https://github.com/mcdofrenchfreis/AnyKernel3.git -b r5x Any
 # Main Variables
 DATE=$(TZ=Asia/Singapore date +"%a %b %d %r %Z %Y")
 BUILD_START=$(date +"%s")
-TCDIR=/home/biofrost/Development/Compiler/clang-r536225
+TCDIR=/workspace/clang
 DTBO=out/arch/arm64/boot/dtbo.img
 IMAGE=out/arch/arm64/boot/Image.gz-dtb
 
@@ -24,21 +24,21 @@ export LOCALVERSION="~$(cat biofrost-localversion)"
 # GitHub Variables
 export COMMIT_HASH=$(git rev-parse --short HEAD)
 export BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
-export REPO_URL="https://github.com/mcdofrenchfreis/biofrost_kernel_realme_sm6125"
+export REPO_URL="https://github.com/Amritorock/kernel_realme_sm6125"
 
 # Build Information
 export COMPILER_NAME="$(${TCDIR}/bin/clang --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//')"
 export LINKER_NAME="$("${TCDIR}"/bin/ld.lld --version | head -n 1 | sed 's/(compatible with [^)]*)//' | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//')"
-export KBUILD_BUILD_USER="xevan"
-export KBUILD_BUILD_HOST="1108"
+export KBUILD_BUILD_USER="Amritorock"
+export KBUILD_BUILD_HOST="ci-builds"
 export DEVICE="Realme 5 Series"
 export CODENAME="realme_trinket"
 export BUILD_TYPE="Maintenance"
 export DISTRO=$(source /etc/os-release && echo "${NAME}")
 
 # Telegram Integration Variables
-CI_ID="-1001736789494"
-BOT_ID="5129489057:AAF5o-JfQ1iAUp9Min7Jcr9sHPjTpCaIlA8"
+CI_ID="-1001635282284"
+BOT_ID="5864964991:AAHbFLyjxq-ruvDzgT8mTEs_-GBswmuq2ZU"
 
 sendinfo() {
   kernel_version=$(make kernelversion 2>/dev/null)

@@ -3103,3 +3103,42 @@
 	regulator-min-microvolt = <3000000>;
 	regulator-max-microvolt = <3000000>;
 };
+
+    thermal-zones {
+        cpu-thermal {
+            polling-delay-passive = <250>;
+            polling-delay = <1000>;
+            thermal-sensors = <&tsens 5>;
+
+            trips {
+                cpu_alert0: trip0 {
+                    temperature = <60000>;
+                    hysteresis = <2000>;
+                    type = "passive";
+                };
+
+                cpu_crit: trip1 {
+                    temperature = <80000>;
+                    hysteresis = <2000>;
+                    type = "critical";
+                };
+            };
+
+            cooling-maps {
+                map0 {
+                    trip = <&cpu_alert0>;
+                    cooling-device = <&cpu0 0 1>;
+                };
+            };
+        };
+    };
+
+    tsens: tsens@4a9000 {
+        compatible = "qcom,tsens-v1";
+        reg = <0x04a9000 0x1000>, <0x04a8000 0x1000>;
+        reg-names = "tsens_srot", "tsens_tm";
+        interrupts = <0 178 0>;
+        #thermal-sensor-cells = <1>;
+    };
+};
+
